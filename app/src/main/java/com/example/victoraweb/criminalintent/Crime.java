@@ -5,6 +5,8 @@ import java.util.UUID;
 /**
  * Created by victoraweb on 5/10/16.
  */
+
+// Model
 public class Crime {
 
     private UUID mId;
