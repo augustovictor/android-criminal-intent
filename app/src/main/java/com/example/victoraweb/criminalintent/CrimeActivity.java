@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-public class CrimeActivity extends FragmentActivity {
+public class CrimeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,8 @@ public class CrimeActivity extends FragmentActivity {
         if(fragment == null) {
             fragment = new CrimeFragment();
 
-            // Creates a new fragment transaction, include one add operation in it and commit
             fm.beginTransaction()
-                .add(R.id.fragment_container, fragment) // Id, fragment
+                .add(R.id.fragment_container, fragment)
                 .commit();
         }
     }
