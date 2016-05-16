@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by victoraweb on 5/14/16.
  */
-public class CrimeListFragment  extends Fragment {
+public class CrimeListFragment extends Fragment {
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -52,12 +52,13 @@ public class CrimeListFragment  extends Fragment {
             startActivity(intent);
         }
     }
+
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
 
         private List<Crime> mCrimes;
 
         public CrimeAdapter(List<Crime> crimes) {
-            this.mCrimes= crimes;
+            this.mCrimes = crimes;
         }
 
         @Override
@@ -86,6 +87,13 @@ public class CrimeListFragment  extends Fragment {
 
         List<Crime> crimes = crimeLab.getmCrimes();
 
+        if (mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+
         mAdapter = new CrimeAdapter(crimes);
 
         mCrimeRecyclerView.setAdapter(mAdapter);
@@ -107,5 +115,11 @@ public class CrimeListFragment  extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 }
