@@ -1,5 +1,6 @@
 package com.example.victoraweb.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,7 +48,8 @@ public class CrimeListFragment  extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), mCrime.getmTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getmId());
+            startActivity(intent);
         }
     }
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
