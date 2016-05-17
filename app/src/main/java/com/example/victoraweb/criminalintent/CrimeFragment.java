@@ -1,5 +1,7 @@
 package com.example.victoraweb.criminalintent;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -31,12 +35,26 @@ public class CrimeFragment extends Fragment {
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
 
+    private static final int REQUEST_DATE = 0;
+
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeId);
         CrimeFragment fragment = new CrimeFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK) return;
+
+        if(requestCode == REQUEST_DATE) {
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mCrime.setmDate(date);
+            DateFormat dateFormat = new DateFormat();
+            mCrimeDate.setText(dateFormat.format("EEEE, LLL dd, yyyy", mCrime.getmDate()));
+        }
     }
 
     @Override
@@ -71,13 +89,13 @@ public class CrimeFragment extends Fragment {
         });
 
         mCrimeDate = (Button) v.findViewById(R.id.crime_date);
-        DateFormat dateFormat = new DateFormat();
-        mCrimeDate.setText(dateFormat.format("EEEE, LLL LL, yyyy", mCrime.getmDate()));
+        updateDate();
         mCrimeDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
-                DatePickerFragment dialog = new DatePickerFragment();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getmDate());
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
                 dialog.show(fm, DIALOG_DATE);
             }
         });
@@ -93,5 +111,10 @@ public class CrimeFragment extends Fragment {
 
         return v;
 
+    }
+
+    private void updateDate() {
+        DateFormat dateFormat = new DateFormat();
+        mCrimeDate.setText(dateFormat.format("EEEE, LLL dd, yyyy", mCrime.getmDate()));
     }
 }
