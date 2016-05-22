@@ -40,4 +40,8 @@ public class CrimeLab {
     public void addCrime(Crime c) {
         this.mCrimes.add(c);
     }
+
+    public void removeCrime(Crime c) {
+        this.mCrimes.remove(c);
+    }
 }
