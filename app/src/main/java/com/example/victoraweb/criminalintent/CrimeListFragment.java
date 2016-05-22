@@ -101,6 +101,8 @@ public class CrimeListFragment extends Fragment {
         mAdapter = new CrimeAdapter(crimes);
 
         mCrimeRecyclerView.setAdapter(mAdapter);
+
+        updateSubtitle();
     }
 
     // CrimeListFragment
