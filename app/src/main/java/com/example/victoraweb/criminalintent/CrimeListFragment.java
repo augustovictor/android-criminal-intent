@@ -1,6 +1,7 @@
 package com.example.victoraweb.criminalintent;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,9 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -187,7 +185,9 @@ public class CrimeListFragment extends Fragment {
 
         int crimeCount = crimeLab.getmCrimes().size();
 
-        String subtitle = getString(R.string.subtitle_format, crimeCount);
+        Resources res = getResources();
+
+        String subtitle = res.getQuantityString(R.plurals.crime_counter, crimeCount, crimeCount);
 
         if(!mSubtitleVisible) {
             subtitle = null;
