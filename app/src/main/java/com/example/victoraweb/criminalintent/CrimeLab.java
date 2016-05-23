@@ -24,7 +24,6 @@ public class CrimeLab {
     private CrimeLab(Context context) {
         mContext = context.getApplicationContext();
         mDatabase = new CrimeBaseHelper(context).getWritableDatabase();
-//        mCrimes = new ArrayList<>();
     }
 
     private static ContentValues getContentValues(Crime crime) {
